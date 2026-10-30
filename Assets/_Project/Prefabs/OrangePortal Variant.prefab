@@ -16,25 +16,41 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 74a26886654b927499e0f51305f18f54, type: 2}
+    - target: {fileID: 1340270226397953438, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1892116090690190956, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Name
+      value: CameraOrgangePortal
+      objectReference: {fileID: 0}
     - target: {fileID: 2574763557845709190, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9536cda9266e44a4e936c7236c12241b, type: 2}
+    - target: {fileID: 4542840413129609886, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 5926163977154048227, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.985
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalRotation.x
@@ -42,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalRotation.z
@@ -54,16 +70,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 6481004072248154411, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6898326906276232171, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7825926502109545299, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 8135776431520000219, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
       propertyPath: m_Name
       value: OrangePortal Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8423952983951005032, guid: b0e94bb4184a0b4499470a9ee8c436bf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

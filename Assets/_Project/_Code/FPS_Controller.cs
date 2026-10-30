@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPS_Controller_V: MonoBehaviour
+public class FPS_Controller: MonoBehaviour
 {
     public Transform m_PitchController;
     float m_Yaw;
@@ -45,6 +45,10 @@ public class FPS_Controller_V: MonoBehaviour
     public KeyCode m_DebugLockAngleCode = KeyCode.I;
     public int m_ShootButton = 0;
 
+    [Header("Portals")] 
+    public Portal_A m_BluePortal;
+    public Portal_A m_OrangePortal;
+    
     /*[Header("Animations")] 
     public Animation m_Animation;
     public AnimationClip m_IdleAnimationClip;
@@ -148,7 +152,7 @@ public class FPS_Controller_V: MonoBehaviour
 
         if (CanShoot() && MustShoot())
         {
-            Shoot();
+            Shoot(m_BluePortal);
         }
     }
     bool CanShoot()
@@ -159,23 +163,24 @@ public class FPS_Controller_V: MonoBehaviour
     {
         return Input.GetMouseButtonDown(m_ShootButton);
     }
-    void Shoot()
+    void Shoot(Portal_A _Portal)
     {
-        /*SetShootWeaponAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value))
         {
-            if (l_RaycastHit.collider.CompareTag("HitCollider"))
+            if (_Portal.IsValidPosition(l_RaycastHit.point, l_RaycastHit.normal))
             {
-                l_RaycastHit.collider.GetComponent<HitCollider>().Hit();
+                _Portal.gameObject.SetActive(true);
             }
             else
             {
-                CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
+                _Portal.gameObject.SetActive(false);
             }
-
-            CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
-        }*/
+        }
+        else
+        {
+            _Portal.gameObject.SetActive(false);
+        }
     }
 
     /*void SetIdleWeaponAnimation()
