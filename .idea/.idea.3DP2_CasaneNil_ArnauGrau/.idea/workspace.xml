@@ -15,12 +15,14 @@
   <component name="ChangeListManager">
     <list default="true" id="954e67ea-0d81-4f92-9595-34f2c6251345" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.3DP2_CasaneNil_ArnauGrau/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.3DP2_CasaneNil_ArnauGrau/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Blue RT.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Materials/Blue RT.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Orange RT.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Materials/Orange RT.renderTexture" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/BluePortal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/BluePortal.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/OrangePortal Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/OrangePortal Variant.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/Portal Arnau.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/Portal Arnau.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller_V.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller_V.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/_Code/Portal_A.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Code/Portal_A.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Code/FPS_Controller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,15 +32,16 @@
   <component name="CopilotPersistence">
     <persistenceIdMap>
       <entry key="_C:/Users/arnau/Documents/GitHub/3DP2_CasaneNil_ArnauGrau" value="3LQ13vBJ0ppz929oSf0GEGKZXib" />
+      <entry key="_C:/Users/arnau/OneDrive/Documentos/GitHub/3DP2_CasaneNil_ArnauGrau" value="3LSRkr4QOiEkWX1CVovm5iFaI3Z" />
     </persistenceIdMap>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3LPznebsyC7hRf9xmA3fDq6XnH5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -67,6 +70,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
@@ -118,6 +122,13 @@
     </configuration>
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="954e67ea-0d81-4f92-9595-34f2c6251345" name="Changes" comment="" />
+      <created>1793445562407</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1793445562407</updated>
+    </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

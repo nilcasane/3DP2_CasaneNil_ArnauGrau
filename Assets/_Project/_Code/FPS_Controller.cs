@@ -43,7 +43,8 @@ public class FPS_Controller: MonoBehaviour
     public KeyCode m_JumpKeyCode = KeyCode.Space;
     public KeyCode m_DebugLockCursorKeyCode =  KeyCode.I;
     public KeyCode m_DebugLockAngleCode = KeyCode.I;
-    public int m_ShootButton = 0;
+    public int m_ShootBlueButton = 0;
+    public int m_ShootOrangeButton = 1;
 
     [Header("Portals")] 
     public Portal_A m_BluePortal;
@@ -152,7 +153,14 @@ public class FPS_Controller: MonoBehaviour
 
         if (CanShoot() && MustShoot())
         {
-            Shoot(m_BluePortal);
+            if (Input.GetMouseButtonUp(m_ShootBlueButton))
+            {
+                Shoot(m_BluePortal);                
+            }
+            else if(Input.GetMouseButtonUp(m_ShootOrangeButton))
+            {
+                Shoot(m_OrangePortal);
+            }
         }
     }
     bool CanShoot()
@@ -161,7 +169,7 @@ public class FPS_Controller: MonoBehaviour
     }
     bool MustShoot()
     {
-        return Input.GetMouseButtonDown(m_ShootButton);
+        return Input.GetMouseButtonUp(m_ShootBlueButton) || Input.GetMouseButtonUp(m_ShootOrangeButton);
     }
     void Shoot(Portal_A _Portal)
     {
