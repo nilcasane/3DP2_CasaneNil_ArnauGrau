@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
+    
     public bool IsDead;
     public event Action Died;
     
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
         if (Instance == this) Instance = null;
     }
 
-    public void Respawn(Vector3 position, Quaternion rotation, bool resetHealth = true)
+    public void Respawn(Vector3 position, Quaternion rotation)
     {
         CharacterController controller = GetComponent<CharacterController>();
         bool wasEnabled = controller != null && controller.enabled;

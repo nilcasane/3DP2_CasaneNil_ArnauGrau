@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33669279946009994}
   - component: {fileID: 23839546223171406}
   - component: {fileID: 65508403462335122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallPrototype08x08x01PortalEnabled
   m_TagString: PortalEnabled
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412497481734608}
   serializedVersion: 2
-  m_LocalRotation: {x: 1.359801e-12, y: 1, z: -0.00000008146033, w: 0.000017017124}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0.000017508202}
   m_LocalPosition: {x: 3, y: -1, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

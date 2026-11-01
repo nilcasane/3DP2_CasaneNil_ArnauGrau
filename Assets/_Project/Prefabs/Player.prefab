@@ -252,6 +252,8 @@ GameObject:
   - component: {fileID: 4444767834237345335}
   - component: {fileID: 5009944053595821170}
   - component: {fileID: 5648317642413961098}
+  - component: {fileID: 1873443947851419530}
+  - component: {fileID: 1420914906208260804}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -385,6 +387,7 @@ MonoBehaviour:
   m_InvertedPitch: 1
   m_MinPitch: -80
   m_MaxPitch: 80
+  m_AngleLocked: 0
 --- !u!114 &5648317642413961098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +403,69 @@ MonoBehaviour:
   m_MoveSpeed: 5
   m_JumpSpeed: 10
   m_SprintSpeed: 10
+--- !u!114 &1873443947851419530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766623279903037523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55469e27f4df38641a98da074a29f991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShooter
+  m_Camera: {fileID: 6250790078973332334}
+  m_MaxShootDistance: 200
+  m_ShootLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_BluePortal: {fileID: 0}
+  m_OrangePortal: {fileID: 0}
+--- !u!114 &1420914906208260804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766623279903037523}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd647c9702867f43a8f87c8e47fa42c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPS_Controller_V
+  m_PitchController: {fileID: 7873417183740767892}
+  mYawSpeed: 10
+  m_PitchSpeed: 5
+  m_InvertedYaw: 0
+  m_InvertedPitch: 1
+  m_MinYaw: 0
+  m_MinPitch: -60
+  m_MaxPitch: 60
+  m_MaxYaw: 360
+  m_SprintSpeed: 15
+  m_JumpSpeed: 5
+  m_AngleLocked: 0
+  speed: 0
+  m_speed: 10
+  m_Camera: {fileID: 6250790078973332334}
+  m_MaxShootDistance: 200
+  m_ShootLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_HitParticlesPrefab: {fileID: 0}
+  m_LeftKeyCode: 97
+  m_RightKeyCode: 100
+  m_UpKeyCode: 119
+  m_DownKeyCode: 115
+  m_SprintKeyCode: 304
+  m_JumpKeyCode: 32
+  m_DebugLockCursorKeyCode: 105
+  m_DebugLockAngleCode: 105
+  m_ShootBlueButton: 0
+  m_ShootOrangeButton: 1
+  m_BluePortal: {fileID: 0}
+  m_OrangePortal: {fileID: 0}
 --- !u!1001 &3984611383863567821
 PrefabInstance:
   m_ObjectHideFlags: 0

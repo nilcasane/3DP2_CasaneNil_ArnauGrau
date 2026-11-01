@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1437984269515424519}
   - component: {fileID: 212850023014756123}
   m_Layer: 0
-  m_Name: CameraBluePortal
+  m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8685340883608820188}
   m_Layer: 0
-  m_Name: ValidPosition (4)
+  m_Name: ValidPosition (5)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 55554167151932389}
   m_Layer: 0
-  m_Name: ValidPosition (5)
+  m_Name: ValidPosition (2)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6097980972482010367}
   m_Layer: 0
-  m_Name: ValidPosition (2)
+  m_Name: ValidPosition (3)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2861149637064794327}
   m_Layer: 0
-  m_Name: ValidPosition (3)
+  m_Name: ValidPosition (4)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -518,6 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6481004072248154411}
+  - component: {fileID: 4890711859860263137}
   - component: {fileID: 7997709089659746992}
   m_Layer: 0
   m_Name: BluePortal
@@ -546,7 +547,7 @@ Transform:
   - {fileID: 7144692209341599338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7997709089659746992
+--- !u!114 &4890711859860263137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -554,6 +555,32 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8135776431520000219}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb5d53816a44b379cfa993e3ea6dfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Portal
+  m_Player: {fileID: 0}
+  m_Camera: {fileID: 212850023014756123}
+  m_OtherPortalTransform: {fileID: 212161618804605094}
+  m_MirrorPortal: {fileID: 0}
+  m_CameraOffset: 0.5
+  m_ValidPositions:
+  - {fileID: 1327183735007447497}
+  - {fileID: 6458263394233024103}
+  - {fileID: 55554167151932389}
+  - {fileID: 6097980972482010367}
+  - {fileID: 2861149637064794327}
+  - {fileID: 8685340883608820188}
+  m_RaycastValidationOffsetDistance: 0.1
+  m_MaxAngleValidation: 5
+--- !u!114 &7997709089659746992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135776431520000219}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3d0b54cb794318a3fde5d0cc51d91d, type: 3}
   m_Name: 
