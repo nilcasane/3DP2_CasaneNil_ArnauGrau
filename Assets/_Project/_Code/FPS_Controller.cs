@@ -10,6 +10,7 @@ public class FPS_Controller: MonoBehaviour
     public Transform m_PitchController;
     float m_Yaw;
     float m_Pitch;
+    Vector3 m_Direction;
     public float mYawSpeed;
     public float m_PitchSpeed;
     public bool m_InvertedYaw;
@@ -49,6 +50,8 @@ public class FPS_Controller: MonoBehaviour
     [Header("Portals")] 
     public Portal_A m_BluePortal;
     public Portal_A m_OrangePortal;
+    public float m_TeleportPortalOffset = 1.0f;
+    public float m_MaxValidAngle = 40.0f;
     
     /*[Header("Animations")] 
     public Animation m_Animation;
@@ -108,7 +111,7 @@ public class FPS_Controller: MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, m_Yaw, 0.0f);
         m_PitchController.localRotation = Quaternion.Euler(m_Pitch, 0.0f, 0.0f);
 
-        Vector3 l_Direction = Vector3.zero;
+        m_Direction = Vector3.zero;
         Vector3 l_Right = transform.right;
         Vector3 l_Forward = transform.forward;
         l_Right.y = 0.0f;
@@ -118,20 +121,20 @@ public class FPS_Controller: MonoBehaviour
 
         if (Input.GetKey(m_RightKeyCode))
         {
-            l_Direction = transform.right;
+            m_Direction = transform.right;
         }
         else if (Input.GetKey(m_LeftKeyCode))
         {
-            l_Direction = -transform.right;
+            m_Direction = -transform.right;
         }
 
         if (Input.GetKey(m_UpKeyCode))
         {
-            l_Direction += transform.forward;
+            m_Direction += transform.forward;
         }
         if (Input.GetKey(m_DownKeyCode))
         {
-            l_Direction -= transform.forward;
+            m_Direction -= transform.forward;
         }
         float l_Speed = m_speed;
         if (Input.GetKey(m_SprintKeyCode))
@@ -142,8 +145,8 @@ public class FPS_Controller: MonoBehaviour
 
         m_VerticalSpeed = m_VerticalSpeed + Physics.gravity.y * Time.deltaTime;
 
-        l_Direction.Normalize();
-        l_Direction = l_Direction * l_Speed * Time.deltaTime;
+        m_Direction.Normalize();
+        Vector3 l_Direction = m_Direction * l_Speed * Time.deltaTime;
         l_Direction.y = m_VerticalSpeed * Time.deltaTime;
         CollisionFlags l_CollisionFlags = m_CharacterController.Move(l_Direction);
         if ((l_CollisionFlags & CollisionFlags.CollidedBelow) != 0)
@@ -206,6 +209,41 @@ public class FPS_Controller: MonoBehaviour
         m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.3f);
     }*/
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Portal"))
+        {
+            Portal l_Portal = other.GetComponent<Portal>();
+            if (CanTeleport(l_Portal))
+            {
+                Teleport(l_Portal);
+            }
+        }
+    }
+
+    private bool CanTeleport(Portal l_Portal)
+    {
+        float l_MaxDotAngle = Mathf.Cos(m_MaxValidAngle * Mathf.Deg2Rad);
+        float l_DotAngle = Vector3.Dot(-m_Direction, l_Portal.transform.forward);
+        return l_DotAngle >= l_MaxDotAngle && l_Portal.isActiveAndEnabled;
+    }
+    
+    
+    private void Teleport(Portal _Portal)
+    {
+        Vector3 l_worldPosition = transform.position + m_Direction * m_TeleportPortalOffset;
+        Vector3 l_worldForward = transform.forward;
+        Vector3 l_localPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(l_worldPosition);
+        Vector3 l_localForward = _Portal.m_OtherPortalTransform.InverseTransformDirection(l_worldForward);
+        
+        m_CharacterController.enabled = false;
+        transform.position = _Portal.m_MirrorPortal.transform.TransformPoint(l_localPosition);
+        transform.forward = _Portal.m_MirrorPortal.transform.InverseTransformDirection(l_localForward);
+        m_Yaw = transform.rotation.eulerAngles.y;
+        m_Direction = Vector3.zero;
+        m_CharacterController.enabled = true;
+
+    }
 
     public void Restart()
     {
