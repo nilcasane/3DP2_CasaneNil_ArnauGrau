@@ -8,6 +8,10 @@ using UnityEngine.Rendering;
 public class FPS_Controller: MonoBehaviour
 {
     public Transform m_PitchController;
+    private bool m_AttachingObject = false;
+    private bool m_ObjectAttached = false;
+    private float m_GrabTime;
+    private Rigidbody m_GrabObject;
     float m_Yaw;
     float m_Pitch;
     Vector3 m_Direction;
@@ -44,6 +48,7 @@ public class FPS_Controller: MonoBehaviour
     public KeyCode m_JumpKeyCode = KeyCode.Space;
     public KeyCode m_DebugLockCursorKeyCode =  KeyCode.I;
     public KeyCode m_DebugLockAngleCode = KeyCode.I;
+    public KeyCode m_GrabObjectCode = KeyCode.E;
     public int m_ShootBlueButton = 0;
     public int m_ShootOrangeButton = 1;
 
@@ -52,6 +57,11 @@ public class FPS_Controller: MonoBehaviour
     public Portal_A m_OrangePortal;
     public float m_TeleportPortalOffset = 1.0f;
     public float m_MaxValidAngle = 40.0f;
+
+    [Header("Grab")] 
+    public Transform m_GrabTransform;
+    public float m_TimeGrab = 0.8f;
+    public float m_ShootAttachedObjectForce = 20.0f;
     
     /*[Header("Animations")] 
     public Animation m_Animation;
@@ -154,6 +164,11 @@ public class FPS_Controller: MonoBehaviour
         else if ((l_CollisionFlags & CollisionFlags.CollidedAbove) != 0 && m_VerticalSpeed > 0.0f)
             m_VerticalSpeed = 0.0f;
 
+        if (CanGrabObject())
+        {
+            GrabObject();
+        }
+        
         if (CanShoot() && MustShoot())
         {
             if (Input.GetMouseButtonUp(m_ShootBlueButton))
@@ -165,10 +180,82 @@ public class FPS_Controller: MonoBehaviour
                 Shoot(m_OrangePortal);
             }
         }
+
+        UpdateAttachingObject();
+        UpdateAttachedObject();
     }
+
+    bool CanGrabObject()
+    {
+        if (Input.GetKeyDown(m_GrabObjectCode) && !m_AttachingObject && !m_ObjectAttached)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void GrabObject()
+    {
+        Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value))
+        {
+            if (l_RaycastHit.collider.CompareTag("Cube"))
+            {
+                GrabObject(l_RaycastHit.collider);
+            }
+        }
+    }
+    void GrabObject(Collider _Collider)
+    {
+            m_GrabObject = _Collider.GetComponent<Rigidbody>();
+            m_GrabObject.isKinematic = true;
+            m_AttachingObject = true;
+            m_GrabObject.transform.SetParent(m_GrabTransform);
+
+            m_GrabTime = Time.time;
+    }
+    
+    private void UpdateAttachingObject()
+    {
+        if (m_AttachingObject)
+        {
+            float l_DiffTime = Time.time - m_GrabTime;
+            float l_Pct = Mathf.Min(1.0f, l_DiffTime / m_TimeGrab);
+            m_GrabObject.transform.position =
+                Vector3.Lerp(m_GrabObject.transform.position, m_GrabTransform.position, l_Pct);
+            m_GrabObject.transform.rotation =
+                Quaternion.Lerp(m_GrabObject.transform.rotation, m_GrabTransform.rotation, l_Pct);
+            if (l_Pct == 1.0f)
+            {
+                m_AttachingObject = false;
+                m_ObjectAttached = true;
+            }
+        }
+    }
+
+    void UpdateAttachedObject()
+    {
+        if (m_ObjectAttached)
+        {
+            if(Input.GetKeyUp(m_GrabObjectCode))
+                ThrowAttachedOject(0.0f);
+            else if (Input.GetMouseButtonUp(m_ShootBlueButton))
+                ThrowAttachedOject(m_ShootAttachedObjectForce);
+        }
+    }
+    
+    void ThrowAttachedOject(float Force)
+    {
+        m_GrabObject.transform.SetParent(null);
+        m_GrabObject.isKinematic = false;
+        m_GrabObject.linearVelocity = m_PitchController.forward * Force;
+        m_ObjectAttached = false;
+    }
+    
     bool CanShoot()
     {
-        return true;
+        return !(m_ObjectAttached || m_AttachingObject);
     }
     bool MustShoot()
     {
