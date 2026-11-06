@@ -10,6 +10,13 @@ public class PlayerShooter : MonoBehaviour
 
     [SerializeField] private Portal m_BluePortal;
     [SerializeField] private Portal m_OrangePortal;
+    
+    private Portal m_ActualBluePortal;
+    private Portal m_ActualOrganePortal;
+    
+    private Portal m_PreviewBluePortal;
+    private Portal m_PreviewOrganePortal;
+    
     public Portal ActualPortal { get; private set; }
     private bool m_Previewing;
 
@@ -24,7 +31,7 @@ public class PlayerShooter : MonoBehaviour
         else if (m_Previewing)
         {
             m_Previewing = false;
-            Shoot();
+            Preview();
         }
     }
 
@@ -38,11 +45,11 @@ public class PlayerShooter : MonoBehaviour
         else if (m_Previewing)
         {
             m_Previewing = false;
-            Shoot();
+            Preview();
         }
     }
 
-    private void Shoot()
+    private void Preview()
     {
         Portal portal = ActualPortal;
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -57,5 +64,13 @@ public class PlayerShooter : MonoBehaviour
         }
 
         portal.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (m_Previewing)
+        {
+            Preview();
+        }
     }
 }
