@@ -977,7 +977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1420914906208260804, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1420914906208260804, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_BluePortal
@@ -993,7 +993,7 @@ PrefabInstance:
       objectReference: {fileID: 634648473}
     - target: {fileID: 1873443947851419530, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1873443947851419530, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_BluePortal
@@ -1003,17 +1003,25 @@ PrefabInstance:
       propertyPath: m_OrangePortal
       value: 
       objectReference: {fileID: 2114483341}
+    - target: {fileID: 1873443947851419530, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
+      propertyPath: m_GrabTransform
+      value: 
+      objectReference: {fileID: 634648473}
+    - target: {fileID: 1873443947851419530, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
+      propertyPath: m_PitchController
+      value: 
+      objectReference: {fileID: 1498013817}
     - target: {fileID: 4444767834237345335, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009944053595821170, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5648317642413961098, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7766623279903037523, guid: cdfb5fa858f5916409cafcf91e37762c, type: 3}
       propertyPath: m_Name
@@ -1033,7 +1041,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1025104127064213234}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55469e27f4df38641a98da074a29f991, type: 3}
   m_Name: 
@@ -1044,7 +1052,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1025104127064213234}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fd647c9702867f43a8f87c8e47fa42c, type: 3}
   m_Name: 

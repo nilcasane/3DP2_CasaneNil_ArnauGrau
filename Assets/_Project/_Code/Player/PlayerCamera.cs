@@ -41,6 +41,11 @@ public class PlayerCamera : MonoBehaviour
         m_PitchController.localRotation = Quaternion.Euler(m_Pitch, 0.0f, 0.0f);
     }
 
+    public void SetYaw(float yaw)
+    {
+        m_Yaw = yaw;
+    }
+
     public void ResetLook()
     {
         m_Yaw = transform.eulerAngles.y;
@@ -52,21 +57,25 @@ public class PlayerCamera : MonoBehaviour
     
     public void OnLook(InputValue value)
     {
+        if (!enabled) return;
         m_LookInput = value.Get<Vector2>();
     }
 
     public void OnLookStick(InputValue value)
     {
+        if (!enabled) return;
         m_StickLookInput = value.Get<Vector2>();
     }
      
     public void OnDebugLockAngle(InputValue value)
     {
+        if (!enabled) return;
         m_AngleLocked = !m_AngleLocked;
     }
     
     public void OnDebugLockCursor(InputValue value)
     {
+        if (!enabled) return;
         Cursor.lockState = Cursor.lockState != CursorLockMode.Locked 
             ? CursorLockMode.Locked : CursorLockMode.None; 
     }

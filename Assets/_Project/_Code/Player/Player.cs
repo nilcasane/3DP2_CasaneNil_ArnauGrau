@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     
     public bool IsDead;
     public event Action Died;
+
+    private Vector3 m_StartPosition;
+    private Quaternion m_StartRotation;
     
     private void Awake()
     {
@@ -20,9 +23,20 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        m_StartPosition = transform.position;
+        m_StartRotation = transform.rotation;
+    }
+
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
+    }
+
+    public void Restart()
+    {
+        Respawn(m_StartPosition, m_StartRotation);
     }
 
     public void Respawn(Vector3 position, Quaternion rotation)

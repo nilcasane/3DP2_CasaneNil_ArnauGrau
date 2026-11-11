@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooter
   m_Camera: {fileID: 6250790078973332334}
+  m_PitchController: {fileID: 7873417183740767892}
   m_MaxShootDistance: 200
   m_ShootLayerMask:
     serializedVersion: 2

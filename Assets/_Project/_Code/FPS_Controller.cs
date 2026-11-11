@@ -84,6 +84,27 @@ public class FPS_Controller: MonoBehaviour
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
+
+        PlayerShooter playerShooter = GetComponent<PlayerShooter>();
+        if (playerShooter != null)
+        {
+            if (playerShooter.m_GrabTransform == null && m_GrabTransform != null)
+                playerShooter.m_GrabTransform = m_GrabTransform;
+            if (playerShooter.m_PitchController == null && m_PitchController != null)
+                playerShooter.m_PitchController = m_PitchController;
+
+            Player player = GetComponent<Player>();
+            if (player != null) player.enabled = true;
+
+            PlayerCamera playerCamera = GetComponent<PlayerCamera>();
+            if (playerCamera != null) playerCamera.enabled = true;
+
+            PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+            if (playerMovement != null) playerMovement.enabled = true;
+
+            playerShooter.enabled = true;
+            enabled = false;
+        }
     }
 
     //x = x0 + v · t distancia
@@ -198,7 +219,7 @@ public class FPS_Controller: MonoBehaviour
     void GrabObject()
     {
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value))
+        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value, QueryTriggerInteraction.Ignore))
         {
             if (l_RaycastHit.collider.CompareTag("Cube"))
             {
@@ -236,9 +257,9 @@ public class FPS_Controller: MonoBehaviour
 
     void UpdateAttachedObject()
     {
-        if (m_ObjectAttached)
+        if (m_ObjectAttached || m_AttachingObject)
         {
-            if(Input.GetKeyUp(m_GrabObjectCode))
+            if(Input.GetKeyUp(m_GrabObjectCode) && m_ObjectAttached)
                 ThrowAttachedOject(0.0f);
             else if (Input.GetMouseButtonUp(m_ShootBlueButton))
                 ThrowAttachedOject(m_ShootAttachedObjectForce);
@@ -247,9 +268,14 @@ public class FPS_Controller: MonoBehaviour
     
     void ThrowAttachedOject(float Force)
     {
-        m_GrabObject.transform.SetParent(null);
-        m_GrabObject.isKinematic = false;
-        m_GrabObject.linearVelocity = m_PitchController.forward * Force;
+        if (m_GrabObject != null)
+        {
+            m_GrabObject.transform.SetParent(null);
+            m_GrabObject.isKinematic = false;
+            m_GrabObject.linearVelocity = m_PitchController.forward * Force;
+            m_GrabObject = null;
+        }
+        m_AttachingObject = false;
         m_ObjectAttached = false;
     }
     
@@ -263,8 +289,9 @@ public class FPS_Controller: MonoBehaviour
     }
     void Shoot(Portal_A _Portal)
     {
+        if (_Portal == null) return;
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value))
+        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value, QueryTriggerInteraction.Ignore))
         {
             if (_Portal.IsValidPosition(l_RaycastHit.point, l_RaycastHit.normal))
             {
@@ -298,6 +325,8 @@ public class FPS_Controller: MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        if (!enabled) return;
+
         if (other.CompareTag("Portal"))
         {
             Portal l_Portal = other.GetComponent<Portal>();
