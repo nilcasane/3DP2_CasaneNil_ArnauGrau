@@ -26,6 +26,9 @@ public class Turret : MonoBehaviour
                 if (l_RaycastHit.collider.CompareTag("Player"))
                 {
                     m_Player.KillPlayer();
+                }else if (l_RaycastHit.collider.CompareTag("RefractionCube"))
+                {
+                    l_RaycastHit.collider.GetComponent<RefractionCube>().Refract();
                 }
             }
             

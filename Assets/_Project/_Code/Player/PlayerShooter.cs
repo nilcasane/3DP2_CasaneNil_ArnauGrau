@@ -161,7 +161,7 @@ public class PlayerShooter : MonoBehaviour
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value, QueryTriggerInteraction.Ignore))
         {
-            if (l_RaycastHit.collider.CompareTag("Cube"))
+            if (l_RaycastHit.collider.CompareTag("Cube") ||l_RaycastHit.collider.CompareTag("RefractionCube"))
             {
                 GrabObject(l_RaycastHit.collider);
             }
