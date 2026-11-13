@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    private LineRenderer m_Laser;
+    
     public float m_MaxDistance;
-    public LineRenderer m_Laser;
     public LayerMask m_LaserLayerMask;
-    public Player m_Player;
+
+    private void Awake()
+    {
+        m_Laser = GetComponentInChildren<LineRenderer>();
+    }
 
     private void Update()
     {
@@ -23,7 +29,7 @@ public class Laser : MonoBehaviour
             
             if (l_RaycastHit.collider.CompareTag("Player"))
             {
-                m_Player.KillPlayer();
+                Player.Instance.KillPlayer();
             }else if (l_RaycastHit.collider.CompareTag("RefractionCube"))
             {
                 l_RaycastHit.collider.GetComponent<RefractionCube>().Refract();

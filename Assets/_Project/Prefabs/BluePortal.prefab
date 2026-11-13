@@ -560,6 +560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb5d53816a44b379cfa993e3ea6dfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
+  m_MirrorRenderer: {fileID: 2574763557845709190}
+  m_TeleportTrigger: {fileID: 7232728939344232735}
   m_Player: {fileID: 0}
   m_Camera: {fileID: 212850023014756123}
   m_OtherPortalTransform: {fileID: 212161618804605094}

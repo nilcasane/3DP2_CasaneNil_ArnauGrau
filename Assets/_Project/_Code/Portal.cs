@@ -13,9 +13,21 @@ public class Portal : MonoBehaviour
     public float m_RaycastValidationOffsetDistance = 0.1f;
     public float m_MaxAngleValidation = 5.0f;
     public float m_CurrentScale = 1f;
-    
+        
+    [SerializeField] private Renderer m_MirrorRenderer;
+    [SerializeField] private Collider m_TeleportTrigger;
+
+    public void SetConnected(bool connected)
+    {
+        m_Camera.enabled = connected;
+        m_MirrorRenderer.enabled = connected;
+        m_TeleportTrigger.enabled = connected;
+    }
+
     private void Update()
     {
+        if (!m_Camera.enabled) return;
+        
         Camera l_Camera = m_Player.m_Camera;
         Vector3 l_CameraWorldPosition = l_Camera.transform.position;
         Vector3 l_CameraLocalPosition = m_MirrorPortal.transform.InverseTransformPoint(l_CameraWorldPosition);

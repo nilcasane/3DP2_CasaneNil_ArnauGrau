@@ -2,7 +2,7 @@
 
 public class Turret : MonoBehaviour
 {
-    public LineRenderer m_Laser;
+    public Laser m_Laser;
     public float m_AngleFall = 30.0f;
     
     private void Update()

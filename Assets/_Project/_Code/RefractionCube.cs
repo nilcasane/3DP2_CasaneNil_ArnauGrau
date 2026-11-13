@@ -2,7 +2,7 @@
 
 public class RefractionCube : MonoBehaviour
 {
-    public LineRenderer m_Laser;
+    public Laser m_Laser;
     private bool m_DisableLaserOnNextFrame = true;
 
     public void Awake()

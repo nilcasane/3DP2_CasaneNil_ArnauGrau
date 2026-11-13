@@ -104,7 +104,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: InteriorMat
-    second: {fileID: 2100000, guid: 9403388024b0ba040a49deb775ef1368, type: 2}
+    second: {fileID: 2100000, guid: 4fbe6d892526a624e8481a8eddec4eab, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -119,17 +119,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: eyeMat
-    second: {fileID: 2100000, guid: 62b7bfa58375c00498a3a2dba6e0d7dd, type: 2}
+    second: {fileID: 2100000, guid: ae0d2bc7e694f654db06be96043e5117, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: turret_bodyMat
-    second: {fileID: 2100000, guid: aa00f3db5a2c32a4fa7e92732d0ad9b4, type: 2}
+    second: {fileID: 2100000, guid: 8bfa69583e8d3124089e1c3817e914bb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: wires_legsMat
-    second: {fileID: 2100000, guid: d44424b46fc3a2044b08cbc64ac00578, type: 2}
+    second: {fileID: 2100000, guid: b4be642b3e350fa4ca8c049882cf3677, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

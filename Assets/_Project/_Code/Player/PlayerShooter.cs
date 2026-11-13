@@ -9,23 +9,22 @@ public class PlayerShooter : MonoBehaviour
     public float m_MaxShootDistance = 200.0f;
     public LayerMask m_ShootLayerMask;
 
-    [SerializeField] private Portal m_BluePortal;
-    [SerializeField] private Portal m_OrangePortal;
+    [SerializeField] private Portal m_BluePortalPrefab;
+    [SerializeField] private Portal m_OrangePortalPrefab;
     
     private Portal m_ActualBluePortal;
-    private Portal m_ActualOrganePortal;
-    
+    private Portal m_ActualOrangePortal;
     private Portal m_PreviewBluePortal;
-    private Portal m_PreviewOrganePortal;
+    private Portal m_PreviewOrangePortal;
     
     public Portal ActualPortal { get; private set; }
-    private bool m_Previewing;
+    private Portal m_ActivePreview;
 
     [Header("Grab")]
+    [SerializeField] private LayerMask m_GrabLayerMask;
     public Transform m_GrabTransform;
     public float m_TimeGrab = 0.8f;
     public float m_ShootAttachedObjectForce = 20.0f;
-    public KeyCode m_GrabObjectCode = KeyCode.E;
 
     private bool m_AttachingObject;
     private bool m_ObjectAttached;
@@ -63,117 +62,136 @@ public class PlayerShooter : MonoBehaviour
                 }
             }
         }
+        
+        CreatePortals();
+    }
+
+    private void OnDestroy()
+    {
+        if (m_ActualBluePortal != null) Destroy(m_ActualBluePortal.gameObject);
+        if (m_ActualOrangePortal != null) Destroy(m_ActualOrangePortal.gameObject);
+        if (m_PreviewBluePortal != null) Destroy(m_PreviewBluePortal.gameObject);
+        if (m_PreviewOrangePortal != null) Destroy(m_PreviewOrangePortal.gameObject);
+    }
+    
+    private void CreatePortals()
+    {
+        m_ActualBluePortal = CreatePortal(m_BluePortalPrefab, false);
+        m_ActualOrangePortal = CreatePortal(m_OrangePortalPrefab, false);
+        m_ActualBluePortal.m_MirrorPortal = m_ActualOrangePortal;
+        m_ActualOrangePortal.m_MirrorPortal = m_ActualBluePortal;
+        m_PreviewBluePortal = CreatePortal(m_BluePortalPrefab, true);
+        m_PreviewOrangePortal = CreatePortal(m_OrangePortalPrefab, true);
+    }
+
+    private Portal CreatePortal(Portal prefab, bool preview)
+    {
+        Portal portal = Instantiate(prefab);
+        portal.gameObject.SetActive(false);
+        portal.m_Player = this;
+        portal.SetConnected(false);
+        if (preview)
+        {
+            portal.enabled = false;
+            foreach (Collider collider in portal.GetComponentsInChildren<Collider>(true))
+                collider.enabled = false;
+        }
+        return portal;
+    }
+
+    public void OnShootBluePortal(InputValue value)
+    {
+        HandlePortalInput(true, value.isPressed);
+    }
+
+    public void OnShootOrangePortal(InputValue value)
+    {
+        HandlePortalInput(false, value.isPressed);
     }
 
     public bool CanShoot()
     {
         return !(m_ObjectAttached || m_AttachingObject);
     }
-
-    public void OnShootBluePortal(InputValue value)
+    
+    public void OnGrabObject(InputValue value)
     {
-        if (!enabled) return;
-
         if (value.isPressed)
         {
-            if (CanShoot())
-            {
-                ActualPortal = m_BluePortal;
-                m_Previewing = true;
-            }
-            else
-            {
-                m_Previewing = false;
-            }
+            if (!m_AttachingObject && !m_ObjectAttached)
+                GrabObject();
         }
-        else
+        else if (m_GrabObject != null)
         {
-            if (m_ObjectAttached || m_AttachingObject)
-            {
-                m_Previewing = false;
-                ThrowAttachedObject(m_ShootAttachedObjectForce);
-                return;
-            }
-
-            if (m_Previewing)
-            {
-                m_Previewing = false;
-                if (CanShoot())
-                {
-                    Preview();
-                }
-            }
+            ThrowAttachedObject(0f);
         }
     }
-
-    public void OnShootOrangePortal(InputValue value)
+    
+    public void OnThrowObject(InputValue value)
     {
-        if (!enabled) return;
-
-        if (!CanShoot())
-        {
-            m_Previewing = false;
-            return;
-        }
-
-        if (value.isPressed)
-        {
-            ActualPortal = m_OrangePortal;
-            m_Previewing = true;
-        }
-        else if (m_Previewing)
-        {
-            m_Previewing = false;
-            Preview();
-        }
+        if (m_ObjectAttached) 
+            ThrowAttachedObject(m_ShootAttachedObjectForce);
     }
 
-    private void Preview()
+    private void HandlePortalInput(bool blue, bool pressed)
     {
         if (!CanShoot()) return;
 
-        Portal portal = ActualPortal;
-        if (portal == null || m_Camera == null) return;
-
-        Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value, QueryTriggerInteraction.Ignore))
+        Portal preview = blue ? m_PreviewBluePortal : m_PreviewOrangePortal;
+        if (pressed)
         {
-            if (portal.IsValidPosition(l_RaycastHit.point, l_RaycastHit.normal))
-            {
-                portal.gameObject.SetActive(true);
-                ActualPortal = portal;
-                return;
-            }
+            HidePreview();
+            ActualPortal = blue ? m_ActualBluePortal : m_ActualOrangePortal;
+            m_ActivePreview = preview;
+            UpdatePreview();
         }
-
-        portal.gameObject.SetActive(false);
+        else if (preview != null && preview == m_ActivePreview)
+        {
+            if (UpdatePreview())
+            {
+                ActualPortal.transform.SetPositionAndRotation(preview.transform.position, preview.transform.rotation);
+                ActualPortal.gameObject.SetActive(true);
+                bool connected = ActualPortal.m_MirrorPortal.isActiveAndEnabled;
+                m_ActualBluePortal.SetConnected(connected);
+                m_ActualOrangePortal.SetConnected(connected);
+            }
+            HidePreview();
+        }
     }
 
-    private bool CanGrabObject()
+    private bool UpdatePreview()
     {
-        return Input.GetKeyDown(m_GrabObjectCode) && !m_AttachingObject && !m_ObjectAttached;
+        Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        bool valid = Physics.Raycast(l_Ray, out RaycastHit hit, m_MaxShootDistance,
+                         m_ShootLayerMask, QueryTriggerInteraction.Ignore)
+                     && hit.collider.CompareTag("PortalEnabled")
+                     && m_ActivePreview.IsValidPosition(hit.point, hit.normal);
+        m_ActivePreview.gameObject.SetActive(valid);
+        return valid;
     }
 
+    private void HidePreview()
+    {
+        if (m_ActivePreview != null) m_ActivePreview.gameObject.SetActive(false);
+        m_ActivePreview = null;
+    }
+    
     private void GrabObject()
     {
         if (m_Camera == null) return;
 
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxShootDistance, m_ShootLayerMask.value, QueryTriggerInteraction.Ignore))
-        {
-            if (l_RaycastHit.collider.CompareTag("Cube") ||l_RaycastHit.collider.CompareTag("RefractionCube"))
-            {
-                GrabObject(l_RaycastHit.collider);
-            }
-        }
-    }
+        // Include the level geometry so walls block the grab ray.
+        const int defaultLayerMask = 1 << 0;
+        int rayMask = m_GrabLayerMask.value | m_ShootLayerMask.value | defaultLayerMask;
+        if (!Physics.Raycast(l_Ray, out RaycastHit hit, m_MaxShootDistance, rayMask, QueryTriggerInteraction.Ignore))
+            return;
 
-    private void GrabObject(Collider _Collider)
-    {
-        m_GrabObject = _Collider.GetComponent<Rigidbody>();
+        if ((m_GrabLayerMask.value & (1 << hit.collider.gameObject.layer)) == 0) return;
+        m_GrabObject = hit.rigidbody;
         if (m_GrabObject == null) return;
 
-        m_Previewing = false;
+        HidePreview();
         m_GrabObject.isKinematic = true;
         m_AttachingObject = true;
         if (m_GrabTransform != null)
@@ -208,17 +226,6 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    private void UpdateAttachedObject()
-    {
-        if (m_ObjectAttached)
-        {
-            if (Input.GetKeyUp(m_GrabObjectCode))
-            {
-                ThrowAttachedObject(0.0f);
-            }
-        }
-    }
-
     private void ThrowAttachedObject(float Force)
     {
         if (m_GrabObject != null)
@@ -235,17 +242,11 @@ public class PlayerShooter : MonoBehaviour
 
     void Update()
     {
-        if (CanGrabObject())
-        {
-            GrabObject();
-        }
-
         UpdateAttachingObject();
-        UpdateAttachedObject();
 
-        if (m_Previewing && CanShoot())
+        if (m_ActivePreview != null)
         {
-            Preview();
+            UpdatePreview();
         }
     }
 }
