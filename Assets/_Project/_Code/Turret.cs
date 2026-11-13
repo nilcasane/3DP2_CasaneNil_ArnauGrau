@@ -7,13 +7,16 @@ public class Turret : MonoBehaviour
     public LayerMask m_LaserLayerMask;
     private void Update()
     {
-        Vector3 l_Position = Vector3.forward * m_MaxDistance;
         Ray l_Ray = new Ray(m_Laser.transform.position, m_Laser.transform.forward);
+        float l_Distance = m_MaxDistance;
 
         if (Physics.Raycast(l_Ray, out RaycastHit l_RaycastHit, m_MaxDistance, m_LaserLayerMask.value, QueryTriggerInteraction.Ignore))
         {
-            l_Position = Vector3.forward * l_RaycastHit.distance;
-            m_Laser.SetPosition(1, l_Position);
+            l_Distance = l_RaycastHit.distance;
         }
+
+        Vector3 l_WorldEndPosition = l_Ray.origin + l_Ray.direction * l_Distance;
+        m_Laser.SetPosition(0, Vector3.zero);
+        m_Laser.SetPosition(1, m_Laser.transform.InverseTransformPoint(l_WorldEndPosition));
     }
 }
