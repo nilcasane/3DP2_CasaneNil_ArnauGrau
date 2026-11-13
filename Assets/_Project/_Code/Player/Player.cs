@@ -49,6 +49,11 @@ public class Player : MonoBehaviour
         GetComponent<PlayerCamera>()?.ResetLook();
         if (wasEnabled) controller.enabled = true;
     }
+    
+    public void KillPlayer()
+    {
+        Debug.Log("El jugador ha tocat el làser!");
+    }
 
     private void Die()
     {

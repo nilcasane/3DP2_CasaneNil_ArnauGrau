@@ -12,6 +12,7 @@ public class Portal : MonoBehaviour
     public List<Transform> m_ValidPositions;
     public float m_RaycastValidationOffsetDistance = 0.1f;
     public float m_MaxAngleValidation = 5.0f;
+    public float m_CurrentScale = 1f;
     
     private void Update()
     {
